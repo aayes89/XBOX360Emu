@@ -18,3 +18,6 @@ It's necessary to thoroughly debug each set of instructions so that the interpre
 
  # Disclaimer
  <b>This is a parallel project of <a href="https://github.com/xenon-emu/xenon">Xenon</a>, it is not related in any way to the aforementioned.</b>
+
+ # Capture 
+![xbox360Fb](https://github.com/user-attachments/assets/c5493f10-4aa7-499b-a8c5-61791e30e768)
