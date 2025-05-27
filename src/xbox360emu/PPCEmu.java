@@ -97,7 +97,7 @@ public class PPCEmu {
                             regState.append("\n");
                         }
                     }
-                    display.printText(10, 45, regState.toString(), 0xFFFFFF);
+                    display.printText(10, 45, regState.toString(), 0xFFFFFFFF);
                 }
 
                 SwingUtilities.invokeLater(() -> display.updateScreen());
