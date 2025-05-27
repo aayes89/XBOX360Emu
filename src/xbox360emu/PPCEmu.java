@@ -77,37 +77,38 @@ public class PPCEmu {
 
         try {
             // Ejecutar n instrucciones
-            //for (int i = 0; i < 20; i++) {
-            mCPU.step();
-            if (PPCEmuConfig.verbose_logging_) {
-                System.out.printf("PC: 0x%08X, r3: 0x%08X, r5: 0x%08X, r6: 0x%08X\n",
-                        mCPU.getRegisters().getPC(), mCPU.getRegisters().getGPR(3),
-                        mCPU.getRegisters().getGPR(5), mCPU.getRegisters().getGPR(6));
-            }
-            //}
-
-            copyFramebufferFromRAM();
-
-            if (PPCEmuConfig.verbose_logging_) {
-                StringBuilder regState = new StringBuilder();
-                regState.append(String.format("PC: 0x%08X\n", mCPU.getRegisters().getPC()));
-                for (int i = 0; i < 32; i++) {
-                    regState.append(String.format("r%d: 0x%08X ", i, mCPU.getRegisters().getGPR(i)));
-                    if ((i + 1) % 4 == 0) {
-                        regState.append("\n");
-                    }
+            while (keep) {
+                mCPU.step();
+                if (PPCEmuConfig.verbose_logging_) {
+                    System.out.printf("PC: 0x%08X, r3: 0x%08X, r5: 0x%08X, r6: 0x%08X\n",
+                            mCPU.getRegisters().getPC(), mCPU.getRegisters().getGPR(3),
+                            mCPU.getRegisters().getGPR(5), mCPU.getRegisters().getGPR(6));
                 }
-                display.printText(10, 45, regState.toString(), 0xFFFFFF);
-            }
+                //}
 
-            SwingUtilities.invokeLater(() -> display.updateScreen());
+                copyFramebufferFromRAM();
+
+                if (PPCEmuConfig.verbose_logging_) {
+                    StringBuilder regState = new StringBuilder();
+                    regState.append(String.format("PC: 0x%08X\n", mCPU.getRegisters().getPC()));
+                    for (int i = 0; i < 32; i++) {
+                        regState.append(String.format("r%d: 0x%08X ", i, mCPU.getRegisters().getGPR(i)));
+                        if ((i + 1) % 4 == 0) {
+                            regState.append("\n");
+                        }
+                    }
+                    display.printText(10, 45, regState.toString(), 0xFFFFFF);
+                }
+
+                SwingUtilities.invokeLater(() -> display.updateScreen());
+            }
             Thread.sleep(frameTime);
         } catch (HaltException e) {
             System.out.println("CPU halted.");
+            keep = false;
             mCPU.dumpState();
         } catch (InterruptedException e) {
             System.err.println(e.getMessage());
-        } finally {
             keep = false;
         }
         System.out.println("Emulation ended!");
