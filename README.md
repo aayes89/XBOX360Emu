@@ -4,7 +4,7 @@ For those who say it's not possible, the intention is to complete this emulator 
 It's necessary to thoroughly debug each set of instructions so that the interpretation is 100% correct, using a modular, scalable, and best-practice style (in most cases).
 
 # Implemented
-* Display and Framebuffer support with OpenGL (JOGL)
+* Display and Framebuffer support with Java native and OpenGL (JOGL)
 * MemoryDevice and RAM
 * CPU (supporting most instructions and opcodes )
 * Files (ELF32, ELF64 and RAW)
